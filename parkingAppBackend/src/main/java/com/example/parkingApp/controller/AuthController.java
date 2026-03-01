@@ -5,6 +5,7 @@ import com.example.parkingApp.entity.Role;
 import com.example.parkingApp.entity.User;
 import com.example.parkingApp.repository.UserRepository;
 import com.example.parkingApp.security.JwtTokenProvider;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,7 +63,9 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         // 4. Vygenerujeme a vrátime JWT token
         String token = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthResponse(token));
+        return ResponseEntity.
+                status(HttpStatus.CREATED)
+                .body(new JwtAuthResponse(token));
     }
 }
 
